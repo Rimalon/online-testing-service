@@ -10,5 +10,5 @@ public class Answer extends BaseEntity {
     Integer userId;
     Integer questionId;
     String answer;
-    boolean isCorrect;
+    Boolean isCorrect;
 }

@@ -9,6 +9,7 @@ public enum APIError {
     INCORRECT_USERNAME_OR_PASSWORD("Incorrect password"),
     USER_ALREADY_LOGGED_OUT("User is already logged out"),
     PASSWORD_MISMATCH("Password mismatch"),
+    NO_ANSWERS_FOUND("No answers found for user"),
     USER_NOT_LOGGED_IN("User is not logged in");
 
     @Getter
