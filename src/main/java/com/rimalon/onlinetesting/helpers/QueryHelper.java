@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -35,6 +36,24 @@ public class QueryHelper {
         }
     }
 
+    public <T extends BaseEntity> List<T> getListObjectsByWhereClause(Class<T> clazz, String whereClause, Object[] args) {
+        try {
+            String sql = String.format("SELECT %s.* FROM %s WHERE %s", clazz.getSimpleName(), getFullTableName(clazz), whereClause);
+            return jtm.query(sql, args, new BeanPropertyRowMapper<>(clazz));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public <T extends BaseEntity, TT extends BaseEntity> List<T> getListObjectsByJoinClause(Class<T> clazz, Class<TT> joinClass, String joinClause) {
+        try {
+            String sql = String.format("SELECT %s.* FROM %s INNER JOIN %s ON %s", clazz.getSimpleName(), getFullTableName(clazz), getFullTableName(joinClass), joinClause);
+            return jtm.query(sql, new BeanPropertyRowMapper<>(clazz));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public <T extends BaseEntity> T getObjectByWhereClause(Class<T> clazz, String whereClause, Object[] args) {
         if (whereClause.chars().filter(ch -> ch == '?').count() != args.length) {
             log.error("Incorrect parameters amount expected={} but actual={}", whereClause.chars().filter(ch -> ch == '?').count(), args.length);
@@ -43,6 +62,15 @@ public class QueryHelper {
         try {
             String sql = String.format("SELECT * FROM %s WHERE %s", getFullTableName(clazz), whereClause);
             return jtm.queryForObject(sql, args, new BeanPropertyRowMapper<>(clazz));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public <T extends BaseEntity> T getObjectWithMaxId(Class<T> clazz) {
+        try {
+            String sql = String.format("SELECT * FROM %s ORDER BY id DESC LIMIT 1", getFullTableName(clazz));
+            return jtm.queryForObject(sql, new BeanPropertyRowMapper<>(clazz));
         } catch (Exception e) {
             return null;
         }
