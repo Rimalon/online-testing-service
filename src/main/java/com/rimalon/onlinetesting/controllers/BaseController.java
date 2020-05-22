@@ -8,11 +8,12 @@ import java.util.function.Supplier;
 
 
 public abstract class BaseController {
-    Logger log;
+    private Logger log;
 
     protected BaseController(Logger log) {
         this.log = log;
     }
+
     protected  <T> RequestResultJSON<T> execute(String logMessage, Supplier<RequestResultJSON<T>> request) {
         try {
             log.debug("{}.", logMessage);

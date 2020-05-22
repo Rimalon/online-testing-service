@@ -7,13 +7,11 @@ import com.rimalon.onlinetesting.interfaces.AuthService;
 import com.rimalon.onlinetesting.datamodel.entities.User;
 import com.rimalon.onlinetesting.helpers.CacheHelper;
 import com.rimalon.onlinetesting.helpers.QueryHelper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 

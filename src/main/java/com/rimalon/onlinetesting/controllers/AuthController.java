@@ -2,7 +2,7 @@ package com.rimalon.onlinetesting.controllers;
 
 
 import com.rimalon.onlinetesting.datamodel.dto.RequestResultJSON;
-import com.rimalon.onlinetesting.services.AuthServiceImpl;
+import com.rimalon.onlinetesting.interfaces.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth-api")
 public class AuthController extends BaseController {
-    private AuthServiceImpl authService;
+    private AuthService authService;
 
     @Autowired
-    public AuthController(AuthServiceImpl authService) {
+    public AuthController(AuthService authService) {
         super(log);
         this.authService = authService;
     }
@@ -31,7 +31,7 @@ public class AuthController extends BaseController {
 
     @PostMapping("/login")
     public RequestResultJSON<Integer> login(@RequestParam String username,
-                                         @RequestParam String password) {
+                                            @RequestParam String password) {
         return execute(String.format("login called. username=%s", username), () -> authService.login(username, password));
     }
 
