@@ -26,12 +26,15 @@ CREATE TABLE IF NOT EXISTS online_testing.test
 
 CREATE TABLE IF NOT EXISTS online_testing.question
 (
-    id       INT          NOT NULL AUTO_INCREMENT,
-    testId   INT          NOT NULL,
-    type     INT          NOT NULL,
-    question VARCHAR(255) NOT NULL,
-    answer   VARCHAR(255) NOT NULL,
-    authorId INT          NOT NULL,
+    id           INT          NOT NULL AUTO_INCREMENT,
+    testId       INT          NOT NULL,
+    type         INT          NOT NULL,
+    title     VARCHAR(255) NOT NULL,
+    authorId     INT          NOT NULL,
+    correctAnswer       VARCHAR(255) NOT NULL,
+    secondOption VARCHAR(255),
+    thirdOption  VARCHAR(255),
+    fourthOption VARCHAR(255),
     PRIMARY KEY (id),
     FOREIGN KEY (authorId) REFERENCES online_testing.user (id),
     FOREIGN KEY (type) REFERENCES online_testing.question_type (id),
