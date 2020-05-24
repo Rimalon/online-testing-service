@@ -1,22 +1,17 @@
-package com.rimalon.onlinetesting.repositories;
+package com.rimalon.onlinetesting.auth;
 
 
-import com.rimalon.onlinetesting.OnlineTestingApplication;
+import com.rimalon.onlinetesting.BaseTest;
 import com.rimalon.onlinetesting.datamodel.dto.LoginResultJSON;
 import com.rimalon.onlinetesting.datamodel.dto.RequestResultJSON;
 import com.rimalon.onlinetesting.datamodel.enums.APIError;
 import com.rimalon.onlinetesting.services.AuthServiceImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = OnlineTestingApplication.class)
-public class AuthServiceImplTest {
+public class AuthServiceImplTest extends BaseTest {
     @Autowired
     AuthServiceImpl userServiceImpl;
 
