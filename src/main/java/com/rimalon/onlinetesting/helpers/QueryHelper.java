@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -107,6 +108,17 @@ public class QueryHelper {
             return false;
         }
         return true;
+    }
+
+    public <T extends BaseEntity, TT extends BaseEntity> List<Map<String, Object>> getListOfMapsByJoinClause(String fieldNames, Class<T> clazz, Class<TT> joinClass,
+                                                                                                             String joinClause) {
+        try {
+            String sql = String.format("SELECT %s FROM %s INNER JOIN %s ON %s", fieldNames, getFullTableName(clazz), getFullTableName(joinClass), joinClause);
+            return jtm.queryForList(sql);
+        } catch (Exception e) {
+            log.error("{} list is not found by join with {} joinClause={}", clazz.getSimpleName(), joinClass.getSimpleName(), joinClause);
+            return null;
+        }
     }
 
 

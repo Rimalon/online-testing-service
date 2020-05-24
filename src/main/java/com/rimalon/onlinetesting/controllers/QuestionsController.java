@@ -42,7 +42,7 @@ public class QuestionsController extends BaseController {
                                                @RequestParam int testId) {
         return executeByLoggedUser(cookie, "getTest",
                 String.format("testId=%s", testId),
-                (userId) -> questionsService.getTest(userId, testId));
+                () -> questionsService.getTest(testId));
     }
 
     @PostMapping("/addFreeEntryQuestion")

@@ -38,10 +38,10 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public RequestResultJSON<TestJSON> getTest(UserId userId, Integer testId) {
+    public RequestResultJSON<TestJSON> getTest(Integer testId) {
         List<Question> questionList = queryHelper.getListObjectsByJoinClause(Question.class, Test.class, "Test.id = Question.testId AND Test.id = ?", new Object[]{testId});
         if (questionList == null) {
-            return RequestResultJSON.errorResult(APIError.CANNOT_GET_TEST);
+            return RequestResultJSON.errorResult(APIError.QUESTIONS_NOT_FOUND);
         } else {
             return new RequestResultJSON<>(true, new TestJSON(testId, questionList.stream().map(q -> {
                 switch (q.getType()) {

@@ -37,9 +37,17 @@ public class AnswersController extends BaseController {
                 (userId) -> answersService.addAnswer(userId, questionId, answer));
     }
 
-    @GetMapping("/getAnswers")
-    public RequestResultJSON<AnswersJSON> getAnswers(@RequestParam @NotEmpty String cookie) {
-        return executeByLoggedUser(cookie, "getAnswers",
+    @GetMapping("/getTestAnswers")
+    public RequestResultJSON<AnswersJSON> getTestAnswers(@RequestParam @NotEmpty String cookie,
+                                                         @RequestParam int testId) {
+        return executeByLoggedUser(cookie, "getTestAnswers",
+                (userId) -> answersService.getAnswers(userId, testId));
+    }
+
+
+    @GetMapping("/getAllAnswers")
+    public RequestResultJSON<AnswersJSON> getAllAnswers(@RequestParam @NotEmpty String cookie) {
+        return executeByLoggedUser(cookie, "getAllAnswers",
                 (userId) -> answersService.getAnswers(userId));
     }
 }

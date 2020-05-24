@@ -50,4 +50,18 @@ public abstract class BaseController {
             return function.apply(loggedUserId);
         }
     }
+
+
+    protected <T> RequestResultJSON<T> executeByLoggedUser(String cookie, String methodName, String params, Supplier<RequestResultJSON<T>> supplier) {
+        if (cookie == null) {
+            return RequestResultJSON.errorResult(APIError.WRONG_COOKIE);
+        }
+        if (!cacheHelper.getLoggedUsers().containsKey(cookie)) {
+            return RequestResultJSON.errorResult(APIError.USER_NOT_LOGGED_IN);
+        } else {
+            UserId loggedUserId = cacheHelper.getLoggedUsers().get(cookie);
+            log.debug("{} called. userId={}, {}", methodName, loggedUserId, params);
+            return supplier.get();
+        }
+    }
 }

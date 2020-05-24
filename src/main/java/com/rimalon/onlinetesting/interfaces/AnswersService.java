@@ -7,5 +7,7 @@ import com.rimalon.onlinetesting.datamodel.ids.UserId;
 public interface AnswersService {
     RequestResultJSON<String> addAnswer(UserId userId, Integer questionId, String answer);
 
+    RequestResultJSON<AnswersJSON> getAnswers(UserId userId, Integer testId);
+
     RequestResultJSON<AnswersJSON> getAnswers(UserId userId);
 }

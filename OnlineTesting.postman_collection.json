@@ -215,25 +215,25 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/quest-api/getTest?cookie={{cookie}}&testId=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"quest-api",
-						"getTest"
-					],
-					"query": [
+                  "raw": "http://localhost:8080/quest-api/getTest?cookie={{cookie}}&testId=3",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "quest-api",
+                    "getTest"
+                  ],
+                  "query": [
 						{
 							"key": "cookie",
 							"value": "{{cookie}}"
 						},
-						{
-							"key": "testId",
-							"value": "1"
-						}
+                    {
+                      "key": "testId",
+                      "value": "3"
+                    }
 					]
 				}
 			},
@@ -245,56 +245,86 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/answer-api/addAnswer?cookie={{cookie}}&questionId=1&answer=first",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"answer-api",
-						"addAnswer"
-					],
-					"query": [
-						{
-							"key": "cookie",
-							"value": "{{cookie}}"
-						},
-						{
-							"key": "questionId",
-							"value": "1"
-						},
-						{
-							"key": "answer",
-							"value": "first"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getAnswers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/answer-api/getAnswers?cookie={{cookie}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"answer-api",
-						"getAnswers"
-					],
-					"query": [
-						{
-							"key": "cookie",
-							"value": "{{cookie}}"
-						}
-					]
+                  "raw": "http://localhost:8080/answer-api/addAnswer?cookie={{cookie}}&questionId=6&answer=6second",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8080",
+                  "path": [
+                    "answer-api",
+                    "addAnswer"
+                  ],
+                  "query": [
+                    {
+                      "key": "cookie",
+                      "value": "{{cookie}}"
+                    },
+                    {
+                      "key": "questionId",
+                      "value": "6"
+                    },
+                    {
+                      "key": "answer",
+                      "value": "6second"
+                    }
+                  ]
+                }
+            },
+          "response": []
+        },
+      {
+        "name": "getAllAnswers",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8080/answer-api/getAllAnswers?cookie={{cookie}}",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "8080",
+            "path": [
+              "answer-api",
+              "getAllAnswers"
+            ],
+            "query": [
+              {
+                "key": "cookie",
+                "value": "{{cookie}}"
+              }
+            ]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "getTestAnswers",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:8080/answer-api/getTestAnswers?cookie={{cookie}}&testId=1",
+            "protocol": "http",
+            "host": [
+              "localhost"
+            ],
+            "port": "8080",
+            "path": [
+              "answer-api",
+              "getTestAnswers"
+            ],
+            "query": [
+              {
+                "key": "cookie",
+                "value": "{{cookie}}"
+              },
+              {
+                "key": "testId",
+                "value": "1"
+              }
+            ]
 				}
 			},
 			"response": []
@@ -485,24 +515,24 @@
 		}
 	],
 	"variable": [
-		{
-			"id": "8fe36e18-d9fa-43b7-ab5e-2b54fb764a9d",
-			"key": "cookie",
-			"value": "",
-			"type": "string"
-		},
-		{
-			"id": "54a6a0de-e383-4091-85ca-1c28c65d0fd4",
-			"key": "username",
-			"value": "username",
-			"type": "string"
-		},
-		{
-			"id": "d9dfc282-7d0f-4600-a3d0-6df623afed30",
-			"key": "password",
-			"value": "password",
-			"type": "string"
-		}
+      {
+        "id": "91c75128-199c-4250-8a78-be49de2f378a",
+        "key": "cookie",
+        "value": "9W3SNOIU7O1UGL32UY0WU36NAWCT6HOR1RBR309JAC9WYKEGB4Q7UH18268F2IQJNC0WQ3YLG2P040940F40Y2CRYQH2ISV07XUW2188WH6T0S0JWZCV4QQVLSPF5MC2CWFKFWDBHDSUCGXGBB108SY7UTX5GEIB8DWEDG14833QUQ4OZQQW1YDPN23AMVBOB1OUM9BMZKZR82XJLHAVZ7II1CQ569THNHZDOAP45L8PERTXE2N704HPFBLOUJ6Y",
+        "type": "string"
+      },
+      {
+        "id": "ea6a506b-7f92-479a-9e20-953398602cb4",
+        "key": "username",
+        "value": "username",
+        "type": "string"
+      },
+      {
+        "id": "f19c8910-345e-4501-9fe9-9490bf3be8f5",
+        "key": "password",
+        "value": "password",
+        "type": "string"
+      }
 	],
 	"protocolProfileBehavior": {}
 }
