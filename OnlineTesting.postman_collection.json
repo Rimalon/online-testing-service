@@ -1,0 +1,508 @@
+{
+	"info": {
+		"_postman_id": "070b8c3a-f1cd-4443-b71b-43f469d1ba1d",
+		"name": "OnlineTesting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/auth-api/register?username={{username}}&password={{password}}&passwordConfirm={{password}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth-api",
+						"register"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						},
+						{
+							"key": "passwordConfirm",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/auth-api/login?username={{username}}&password={{password}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth-api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/auth-api/logout?cookie={{cookie}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth-api",
+						"logout"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addQuestion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quest-api/addFreeEntryQuestion?cookie={{cookie}}&testId=3&title=What&correctAnswer=That",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quest-api",
+						"addFreeEntryQuestion"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "testId",
+							"value": "3"
+						},
+						{
+							"key": "title",
+							"value": "What"
+						},
+						{
+							"key": "correctAnswer",
+							"value": "That"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addChoiseOfAnswerQuestion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quest-api/addChoiceOfAnswerQuestion?cookie={{cookie}}&testId=3&title=thirrd?&correctAnswer=first&secondOption=second&thirdOption=third&fourthOption=four",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quest-api",
+						"addChoiceOfAnswerQuestion"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "testId",
+							"value": "3"
+						},
+						{
+							"key": "title",
+							"value": "thirrd?"
+						},
+						{
+							"key": "correctAnswer",
+							"value": "first"
+						},
+						{
+							"key": "secondOption",
+							"value": "second"
+						},
+						{
+							"key": "thirdOption",
+							"value": "third"
+						},
+						{
+							"key": "fourthOption",
+							"value": "four"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createTest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quest-api/createTest?cookie={{cookie}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quest-api",
+						"createTest"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/quest-api/getTest?cookie={{cookie}}&testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quest-api",
+						"getTest"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "testId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addAnswer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/answer-api/addAnswer?cookie={{cookie}}&questionId=1&answer=first",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answer-api",
+						"addAnswer"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "questionId",
+							"value": "1"
+						},
+						{
+							"key": "answer",
+							"value": "first"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAnswers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/answer-api/getAnswers?cookie={{cookie}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answer-api",
+						"getAnswers"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersAmount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stat-api/getTotalUsersAmount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stat-api",
+						"getTotalUsersAmount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersAnsweredAllTestingQuestions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stat-api/getUsersAnsweredAllTestingQuestions?testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stat-api",
+						"getUsersAnsweredAllTestingQuestions"
+					],
+					"query": [
+						{
+							"key": "testId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersAnsweredAllTestingQuestionsCorrectly",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stat-api/getUsersAnsweredAllTestingQuestionsCorrectly?testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stat-api",
+						"getUsersAnsweredAllTestingQuestionsCorrectly"
+					],
+					"query": [
+						{
+							"key": "testId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserPercentageOfCorrectAnswers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stat-api/getUserPercentageOfCorrectAnswers?cookie={{cookie}}&testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stat-api",
+						"getUserPercentageOfCorrectAnswers"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "testId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersPercentageOfWorseThanUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stat-api/getUsersPercentageOfWorseThanUser?cookie={{cookie}}&testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stat-api",
+						"getUsersPercentageOfWorseThanUser"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "testId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersPercentageOfBetterThanUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stat-api/getUsersPercentageOfBetterThanUser?cookie={{cookie}}&testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stat-api",
+						"getUsersPercentageOfBetterThanUser"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "testId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "73f5cb72-5159-4429-a535-b7513294c627",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5bffda3f-acfa-4ade-8233-5e41613a8dbb",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8fe36e18-d9fa-43b7-ab5e-2b54fb764a9d",
+			"key": "cookie",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "54a6a0de-e383-4091-85ca-1c28c65d0fd4",
+			"key": "username",
+			"value": "username",
+			"type": "string"
+		},
+		{
+			"id": "d9dfc282-7d0f-4600-a3d0-6df623afed30",
+			"key": "password",
+			"value": "password",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
