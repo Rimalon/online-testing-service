@@ -5,14 +5,18 @@ import com.rimalon.onlinetesting.helpers.CacheHelper;
 import com.rimalon.onlinetesting.interfaces.StatisticsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotEmpty;
+
 
 @Slf4j
 @RestController
+@Validated
 @RequestMapping("/stat-api")
 public class StatisticsController extends BaseController {
     private StatisticsService statisticsService;
@@ -47,14 +51,14 @@ public class StatisticsController extends BaseController {
     }
 
     @GetMapping("/getUserPercentageOfCorrectAnswers")
-    public RequestResultJSON<Double> getUserPercentageOfCorrectAnswers(@RequestParam String cookie,
+    public RequestResultJSON<Double> getUserPercentageOfCorrectAnswers(@RequestParam @NotEmpty String cookie,
                                                                        @RequestParam int testId) {
         return executeByLoggedUser(cookie, "getUserPercentageOfCorrectAnswers", String.format("testId=%s", testId),
                 (userId) -> statisticsService.getUserPercentageOfCorrectAnswers(userId, testId));
     }
 
     @GetMapping("/getUsersPercentageOfWorseThanUser")
-    public RequestResultJSON<Double> getUsersPercentageOfWorseThanUser(@RequestParam String cookie,
+    public RequestResultJSON<Double> getUsersPercentageOfWorseThanUser(@RequestParam @NotEmpty String cookie,
                                                                        @RequestParam int testId) {
         return executeByLoggedUser(cookie, "getUsersPercentageOfWorseThanUser", String.format("testId=%s", testId),
                 (userId) -> statisticsService.getUsersPercentageOfWorseThanUser(userId, testId));

@@ -7,15 +7,19 @@ import com.rimalon.onlinetesting.helpers.CacheHelper;
 import com.rimalon.onlinetesting.interfaces.QuestionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotEmpty;
+
 
 @Slf4j
 @RestController
+@Validated
 @RequestMapping("/quest-api")
 public class QuestionsController extends BaseController {
     private QuestionsService questionsService;
@@ -28,13 +32,13 @@ public class QuestionsController extends BaseController {
     }
 
     @PostMapping("/createTest")
-    public RequestResultJSON<TestJSON> createTest(@RequestParam String cookie) {
+    public RequestResultJSON<TestJSON> createTest(@RequestParam @NotEmpty String cookie) {
         return executeByLoggedUser(cookie, "addTest", (userId) -> questionsService.createTest(userId));
 
     }
 
     @GetMapping("/getTest")
-    public RequestResultJSON<TestJSON> getTest(@RequestParam String cookie,
+    public RequestResultJSON<TestJSON> getTest(@RequestParam @NotEmpty String cookie,
                                                @RequestParam int testId) {
         return executeByLoggedUser(cookie, "getTest",
                 String.format("testId=%s", testId),
@@ -42,23 +46,23 @@ public class QuestionsController extends BaseController {
     }
 
     @PostMapping("/addFreeEntryQuestion")
-    public RequestResultJSON<String> addFreeEntryQuestion(@RequestParam String cookie,
+    public RequestResultJSON<String> addFreeEntryQuestion(@RequestParam @NotEmpty String cookie,
                                                           @RequestParam int testId,
-                                                          @RequestParam String title,
-                                                          @RequestParam String correctAnswer) {
+                                                          @RequestParam @NotEmpty String title,
+                                                          @RequestParam @NotEmpty String correctAnswer) {
         return executeByLoggedUser(cookie, "addChoiceOfAnswerQuestion",
                 String.format("testId=%s, title=%s, answer=%s", testId, title, correctAnswer),
                 (userId) -> questionsService.addQuestion(userId, testId, QuestionType.freeEntry, title, correctAnswer));
     }
 
     @PostMapping("/addChoiceOfAnswerQuestion")
-    public RequestResultJSON<String> addChoiceOfAnswerQuestion(@RequestParam String cookie,
+    public RequestResultJSON<String> addChoiceOfAnswerQuestion(@RequestParam @NotEmpty String cookie,
                                                                @RequestParam int testId,
-                                                               @RequestParam String title,
-                                                               @RequestParam String correctAnswer,
-                                                               @RequestParam String secondOption,
-                                                               @RequestParam String thirdOption,
-                                                               @RequestParam String fourthOption) {
+                                                               @RequestParam @NotEmpty String title,
+                                                               @RequestParam @NotEmpty String correctAnswer,
+                                                               @RequestParam @NotEmpty String secondOption,
+                                                               @RequestParam @NotEmpty String thirdOption,
+                                                               @RequestParam @NotEmpty String fourthOption) {
         return executeByLoggedUser(cookie, "addFreeEntryQuestion",
                 String.format("testId=%s, title=%s,  correctAnswer=%s, secondOption=%s, thirdOption=%s, fourthOption=%s",
                         testId, title, correctAnswer, secondOption, thirdOption, fourthOption),

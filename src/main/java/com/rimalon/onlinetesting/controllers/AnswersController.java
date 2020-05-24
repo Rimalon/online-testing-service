@@ -6,14 +6,18 @@ import com.rimalon.onlinetesting.helpers.CacheHelper;
 import com.rimalon.onlinetesting.interfaces.AnswersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotEmpty;
+
 @Slf4j
 @RestController
+@Validated
 @RequestMapping("/answer-api")
 public class AnswersController extends BaseController {
     private AnswersService answersService;
@@ -25,7 +29,7 @@ public class AnswersController extends BaseController {
     }
 
     @PostMapping("/addAnswer")
-    public RequestResultJSON<String> addAnswer(@RequestParam String cookie,
+    public RequestResultJSON<String> addAnswer(@RequestParam @NotEmpty String cookie,
                                                @RequestParam int questionId,
                                                @RequestParam(required = false) String answer) {
         return executeByLoggedUser(cookie, "addAnswer",
@@ -34,7 +38,7 @@ public class AnswersController extends BaseController {
     }
 
     @GetMapping("/getAnswers")
-    public RequestResultJSON<AnswersJSON> getAnswers(@RequestParam String cookie) {
+    public RequestResultJSON<AnswersJSON> getAnswers(@RequestParam @NotEmpty String cookie) {
         return executeByLoggedUser(cookie, "getAnswers",
                 (userId) -> answersService.getAnswers(userId));
     }
