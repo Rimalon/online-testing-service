@@ -43,7 +43,11 @@ CREATE TABLE IF NOT EXISTS online_testing.question
     PRIMARY KEY (id),
     FOREIGN KEY (authorId) REFERENCES online_testing.user (id),
     FOREIGN KEY (type) REFERENCES online_testing.question_type (id),
-    FOREIGN KEY (testId) REFERENCES online_testing.test (id)
+    FOREIGN KEY (testId) REFERENCES online_testing.test (id),
+    CONSTRAINT check_not_null_options_for_choiceOfAnswer_question
+        CHECK ((question.type != 0) OR (secondOption IS NOT NULL AND thirdOption IS NOT NULL AND fourthOption IS NOT NULL)),
+    CONSTRAINT check_null_options_for_freeEnrty_question
+        CHECK ((question.type != 1) OR (secondOption IS NULL AND thirdOption IS NULL AND fourthOption IS NULL))
 );
 
 CREATE TRIGGER only_five_questions_for_one_test_trigger

@@ -17,16 +17,14 @@ VALUES (1, 1, 0, '1?', 1, '1first', '1second', '1third', '1fourth');
 INSERT INTO online_testing.question (id, testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption)
 VALUES (2, 1, 0, '2?', 1, '2first', '2second', '2third', '2fourth');
 INSERT INTO online_testing.question (id, testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption)
-VALUES (3, 1, 1, '3?', 1, '3first', '3second', '3third', '3fourth');
+VALUES (3, 1, 0, '3?', 1, '3first', '3second', '3third', '3fourth');
 INSERT INTO online_testing.question (id, testId, type, title, authorId, correctAnswer)
 VALUES (4, 1, 1, '4?', 1, '4first');
 INSERT INTO online_testing.question (id, testId, type, title, authorId, correctAnswer)
 VALUES (5, 1, 1, '5?', 1, '5first');
 
 INSERT INTO online_testing.question (id, testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption)
-VALUES (6, 2, 1, '6?', 1, '6first', '6second', '6third', '6fourth');
-INSERT INTO online_testing.question (id, testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption)
-VALUES (7, 2, 1, '6?', 1, '6first', '6second', '6third', '6fourth');
+VALUES (6, 2, 0, '6?', 1, '6first', '6second', '6third', '6fourth');
 
 INSERT INTO online_testing.answer (id, userId, questionId, answer, isCorrect)
 VALUES (1, 1, 1, '1first', true);
@@ -44,7 +42,7 @@ VALUES (6, 2, 1, '1first', true);
 INSERT INTO online_testing.answer (id, userId, questionId, answer, isCorrect)
 VALUES (7, 2, 2, '2second', false);
 INSERT INTO online_testing.answer (id, userId, questionId, answer, isCorrect)
-VALUES (8, 2, 3, '2third', false);
+VALUES (8, 2, 3, '3third', false);
 
 
 INSERT INTO online_testing.answer (id, userId, questionId, answer, isCorrect)
