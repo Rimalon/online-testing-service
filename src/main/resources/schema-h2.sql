@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS online_testing.question
     FOREIGN KEY (testId) REFERENCES online_testing.test (id),
     CONSTRAINT check_not_null_options_for_choiceOfAnswer_question
         CHECK ((question.type != 0) OR (secondOption IS NOT NULL AND thirdOption IS NOT NULL AND fourthOption IS NOT NULL)),
-    CONSTRAINT check_null_options_for_freeEnrty_question
+    CONSTRAINT check_null_options_for_freeEntry_question
         CHECK ((question.type != 1) OR (secondOption IS NULL AND thirdOption IS NULL AND fourthOption IS NULL))
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS online_testing.answer
         CHECK (isCorrect = (SELECT question.correctAnswer = answer
                             FROM online_testing.question
                             WHERE question.id = questionId)),
-    CONSTRAINT check_variableQuestionsAnswer
+    CONSTRAINT check_choiceOfAnswer_answer
         CHECK (SELECT (question.type != 0) OR answer IN (question.correctAnswer, question.secondOption, question.thirdOption, question.fourthOption)
                FROM online_testing.question
                WHERE question.id = questionId)
