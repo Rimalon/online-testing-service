@@ -215,25 +215,25 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-                  "raw": "http://localhost:8080/quest-api/getTest?cookie={{cookie}}&testId=3",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "quest-api",
-                    "getTest"
-                  ],
-                  "query": [
+					"raw": "http://localhost:8080/quest-api/getTest?cookie={{cookie}}&testId=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"quest-api",
+						"getTest"
+					],
+					"query": [
 						{
 							"key": "cookie",
 							"value": "{{cookie}}"
 						},
-                    {
-                      "key": "testId",
-                      "value": "3"
-                    }
+						{
+							"key": "testId",
+							"value": "3"
+						}
 					]
 				}
 			},
@@ -245,92 +245,92 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-                  "raw": "http://localhost:8080/answer-api/addAnswer?cookie={{cookie}}&questionId=6&answer=6second",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "8080",
-                  "path": [
-                    "answer-api",
-                    "addAnswer"
-                  ],
-                  "query": [
-                    {
-                      "key": "cookie",
-                      "value": "{{cookie}}"
-                    },
-                    {
-                      "key": "questionId",
-                      "value": "6"
-                    },
-                    {
-                      "key": "answer",
-                      "value": "6second"
-                    }
-                  ]
-                }
-            },
-          "response": []
-        },
-      {
-        "name": "getAllAnswers",
-        "request": {
-          "method": "GET",
-          "header": [],
-          "url": {
-            "raw": "http://localhost:8080/answer-api/getAllAnswers?cookie={{cookie}}",
-            "protocol": "http",
-            "host": [
-              "localhost"
-            ],
-            "port": "8080",
-            "path": [
-              "answer-api",
-              "getAllAnswers"
-            ],
-            "query": [
-              {
-                "key": "cookie",
-                "value": "{{cookie}}"
-              }
-            ]
-          }
-        },
-        "response": []
-      },
-      {
-        "name": "getTestAnswers",
-        "request": {
-          "method": "GET",
-          "header": [],
-          "url": {
-            "raw": "http://localhost:8080/answer-api/getTestAnswers?cookie={{cookie}}&testId=1",
-            "protocol": "http",
-            "host": [
-              "localhost"
-            ],
-            "port": "8080",
-            "path": [
-              "answer-api",
-              "getTestAnswers"
-            ],
-            "query": [
-              {
-                "key": "cookie",
-                "value": "{{cookie}}"
-              },
-              {
-                "key": "testId",
-                "value": "1"
-              }
-            ]
+					"raw": "http://localhost:8080/answer-api/addAnswer?cookie={{cookie}}&questionId=6&answer=6second",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answer-api",
+						"addAnswer"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "questionId",
+							"value": "6"
+						},
+						{
+							"key": "answer",
+							"value": "6second"
+						}
+					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "getUsersAmount",
+			"name": "getAllAnswers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/answer-api/getAllAnswers?cookie={{cookie}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answer-api",
+						"getAllAnswers"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTestAnswers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/answer-api/getTestAnswers?cookie={{cookie}}&testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answer-api",
+						"getTestAnswers"
+					],
+					"query": [
+						{
+							"key": "cookie",
+							"value": "{{cookie}}"
+						},
+						{
+							"key": "testId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTotalUsersAmount",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -344,6 +344,32 @@
 					"path": [
 						"stat-api",
 						"getTotalUsersAmount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersTestedAmount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stat-api/getUsersTestedAmount?testId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stat-api",
+						"getUsersTestedAmount"
+					],
+					"query": [
+						{
+							"key": "testId",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -515,24 +541,24 @@
 		}
 	],
 	"variable": [
-      {
-        "id": "91c75128-199c-4250-8a78-be49de2f378a",
-        "key": "cookie",
-        "value": "9W3SNOIU7O1UGL32UY0WU36NAWCT6HOR1RBR309JAC9WYKEGB4Q7UH18268F2IQJNC0WQ3YLG2P040940F40Y2CRYQH2ISV07XUW2188WH6T0S0JWZCV4QQVLSPF5MC2CWFKFWDBHDSUCGXGBB108SY7UTX5GEIB8DWEDG14833QUQ4OZQQW1YDPN23AMVBOB1OUM9BMZKZR82XJLHAVZ7II1CQ569THNHZDOAP45L8PERTXE2N704HPFBLOUJ6Y",
-        "type": "string"
-      },
-      {
-        "id": "ea6a506b-7f92-479a-9e20-953398602cb4",
-        "key": "username",
-        "value": "username",
-        "type": "string"
-      },
-      {
-        "id": "f19c8910-345e-4501-9fe9-9490bf3be8f5",
-        "key": "password",
-        "value": "password",
-        "type": "string"
-      }
+		{
+			"id": "6ae9fbce-4955-4d4a-9eb7-57e82d73e279",
+			"key": "cookie",
+			"value": "1UIDG4K6LF7V028ZEA35PZSCF2HVFJWLIPFCBMM6L1PJY5YALID6FFHR0SJ3MCPG28M5JWW80P2RI0MAC8N3C5IFY9OD5H42VOXU79QAPDEGCXZXOPU38AQ3NZX4UX6YIYO94LERVKDA7VWR7GR3OZZLV1R45ALGTAY3YVYJCO5IE74H4NB260STOWPAGINSMR3Z8Z75PPTQR8T0EWXXYZO17ZUWQDR69PHT6ZS5UYJGZERDCDP46QUIBWJ199NP",
+			"type": "string"
+		},
+		{
+			"id": "319fe45d-354b-4ae3-8688-698e8eef3be3",
+			"key": "username",
+			"value": "username",
+			"type": "string"
+		},
+		{
+			"id": "a6b9ebc0-649a-4a46-92de-c262d6bfe62b",
+			"key": "password",
+			"value": "password",
+			"type": "string"
+		}
 	],
 	"protocolProfileBehavior": {}
 }
