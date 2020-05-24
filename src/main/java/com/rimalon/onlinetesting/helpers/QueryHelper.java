@@ -100,7 +100,7 @@ public class QueryHelper {
 
     public <T extends BaseEntity> boolean save(Class<T> clazz, String fields, Object[] args) {
         String values = String.join(",", Collections.nCopies(args.length, "?"));
-        String sql = String.format("INSERT INTO %s %s VALUES (%s)", getFullTableName(clazz), fields, values);
+        String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", getFullTableName(clazz), fields, values);
         try {
             jtm.update(sql, args);
         } catch (Exception e) {

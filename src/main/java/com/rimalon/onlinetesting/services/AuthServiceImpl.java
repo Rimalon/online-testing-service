@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
             return RequestResultJSON.errorResult(APIError.USER_ALREADY_REGISTERED);
         }
 
-        boolean result = queryHelper.save(User.class, "(username, password)", new Object[]{username.toLowerCase(), passwordEncoder.encode(password)});
+        boolean result = queryHelper.save(User.class, "username, password", new Object[]{username.toLowerCase(), passwordEncoder.encode(password)});
 
         if (!result) {
             return RequestResultJSON.errorResult(APIError.CANNOT_CREATE_USER);

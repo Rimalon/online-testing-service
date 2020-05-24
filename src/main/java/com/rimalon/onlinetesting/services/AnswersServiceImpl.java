@@ -30,7 +30,10 @@ public class AnswersServiceImpl implements AnswersService {
     @Override
     public RequestResultJSON<String> addAnswer(UserId userId, Integer questionId, String answer) {
         Question question = queryHelper.getById(Question.class, questionId);
-        boolean result = queryHelper.save(Answer.class, "(userId, questionId, answer, isCorrect)",
+        if (question == null) {
+            return RequestResultJSON.errorResult(APIError.CANNOT_ADD_ANSWER);
+        }
+        boolean result = queryHelper.save(Answer.class, "userId, questionId, answer, isCorrect",
                 new Object[]{userId, questionId, answer, question.getCorrectAnswer().equalsIgnoreCase(answer)});
         if (!result) {
             return RequestResultJSON.errorResult(APIError.CANNOT_ADD_ANSWER);

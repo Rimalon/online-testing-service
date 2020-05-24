@@ -115,6 +115,9 @@ public class StatisticsServiceImpl implements StatisticsService {
                 usersAnswersMap.entrySet().stream()
                         .filter(e -> !e.getKey().equals(userId))
                         .filter(e -> predicate.test(e.getValue().stream().filter(Answer::getIsCorrect).count(), userCorrectAnswersCount)).count();
+        if (usersAnswersMap.keySet().size() - 1 == 0) {
+            return new RequestResultJSON<>(false, null, "You are the only user of this system :c");
+        }
         return new RequestResultJSON<>(true, ((double) suitableUsers / (usersAnswersMap.keySet().size() - 1)) * 100d, null);
     }
 

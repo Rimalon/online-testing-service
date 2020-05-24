@@ -2,7 +2,7 @@ CREATE SCHEMA IF NOT EXISTS online_testing;
 
 CREATE TABLE IF NOT EXISTS online_testing.user
 (
-    id       INT          NOT NULL AUTO_INCREMENT,
+    id       INT          NOT NULL IDENTITY (1,1),
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
@@ -22,7 +22,7 @@ VALUES (1, 'freeEntry');
 
 CREATE TABLE IF NOT EXISTS online_testing.test
 (
-    id       INT NOT NULL AUTO_INCREMENT,
+    id       INT NOT NULL IDENTITY (1,1),
     authorId INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (authorId) REFERENCES online_testing.user (id)
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS online_testing.test
 
 CREATE TABLE IF NOT EXISTS online_testing.question
 (
-    id            INT          NOT NULL AUTO_INCREMENT,
+    id            INT          NOT NULL IDENTITY (1,1),
     testId        INT          NOT NULL,
     type          INT          NOT NULL,
     title         VARCHAR(255) NOT NULL,
@@ -58,7 +58,7 @@ CALL "com.rimalon.onlinetesting.database.triggers.OnlyFiveQuestionsInTestTrigger
 
 CREATE TABLE IF NOT EXISTS online_testing.answer
 (
-    id         INT     NOT NULL AUTO_INCREMENT,
+    id         INT     NOT NULL IDENTITY (1,1),
     userId     INT     NOT NULL,
     questionId INT     NOT NULL,
     answer     VARCHAR(255),

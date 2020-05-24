@@ -28,7 +28,7 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     @Override
     public synchronized RequestResultJSON<TestJSON> createTest(UserId userId) {
-        boolean saveResult = queryHelper.save(Test.class, "(authorId)", new Object[]{userId});
+        boolean saveResult = queryHelper.save(Test.class, "authorId", new Object[]{userId});
         if (!saveResult) {
             return RequestResultJSON.errorResult(APIError.CANNOT_CREATE_TEST);
         } else {
@@ -62,7 +62,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         if (questionListByTestId.size() >= 5) {
             return RequestResultJSON.errorResult(APIError.ONLY_FIVE_QUESTIONS_IN_ONE_TEST);
         }
-        boolean result = queryHelper.save(Question.class, "(testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption)",
+        boolean result = queryHelper.save(Question.class, "testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption",
                 new Object[]{testId, type.getValue(), title, userId, correctAnswer, secondOption, thirdOption, fourthOption});
         if (!result) {
             return RequestResultJSON.errorResult(APIError.CANNOT_ADD_QUESTION);
@@ -77,7 +77,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         if (questionListByTestId.size() >= 5) {
             return RequestResultJSON.errorResult(APIError.ONLY_FIVE_QUESTIONS_IN_ONE_TEST);
         }
-        boolean result = queryHelper.save(Question.class, "(testId, type, title, authorId, correctAnswer)",
+        boolean result = queryHelper.save(Question.class, "testId, type, title, authorId, correctAnswer",
                 new Object[]{testId, type.getValue(), title, userId, correctAnswer});
         if (!result) {
             return RequestResultJSON.errorResult(APIError.CANNOT_ADD_QUESTION);
