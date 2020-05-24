@@ -45,7 +45,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         if (answersList == null) {
             return RequestResultJSON.errorResult(APIError.ANSWERS_NOT_FOUND_FOR_TEST);
         }
-        return new RequestResultJSON<>(true, getUsersAnswerMap(answersList).size(), null);
+        return new RequestResultJSON<>(true, getUsersAnswerMap(answersList).keySet().size(), null);
     }
 
     @Override

@@ -21,12 +21,12 @@ public class UserId extends SqlParameterValue {
 
         UserId intId = (UserId) o;
 
-        return this.getValue() == intId.getValue();
+        return intId.getValue().equals(this.getValue());
     }
 
     @Override
     public int hashCode() {
-        return (int) super.getValue();
+        return (Integer) this.getValue();
     }
 
 }
