@@ -29,7 +29,7 @@ public abstract class BaseController {
             return supplier.get();
         } catch (Exception e) {
             log.error("{} error. {}", methodName, e.getMessage());
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.INTERNAL_ERROR);
         }
     }
 

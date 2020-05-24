@@ -33,7 +33,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     public RequestResultJSON<Integer> getTotalUsersAmount() {
         Integer result = queryHelper.getTableRowsCount(User.class);
         if (result == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.USERS_NOT_FOUND);
         } else {
             return new RequestResultJSON<>(true, result, null);
         }
@@ -43,7 +43,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     public RequestResultJSON<Integer> getUsersTestedAmount(int testId) {
         List<Answer> answersList = getAnswerListByTestId(testId);
         if (answersList == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.ANSWERS_NOT_FOUND_FOR_TEST);
         }
         return new RequestResultJSON<>(true, getUsersAnswerMap(answersList).size(), null);
     }
@@ -61,11 +61,11 @@ public class StatisticsServiceImpl implements StatisticsService {
     private RequestResultJSON<Long> getUsersAmountAnsweredAllTestingQuestionByAnswerPredicate(int testId, Predicate<Answer> answerPredicate) {
         List<Integer> questionsIdsList = getQuestionIdsListByTestId(testId);
         if (questionsIdsList == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.QUESTIONS_NOT_FOUND);
         }
         List<Answer> answersList = getAnswersListByQuestionIds(questionsIdsList, null);
         if (answersList == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.ANSWERS_NOT_FOUND_FOR_TEST);
         }
         Map<UserId, List<Answer>> usersAnswersMap = getUsersAnswerMap(answersList);
         long result = usersAnswersMap.values().stream().filter(list -> list.stream().map(Answer::getQuestionId).collect(Collectors.toList()).containsAll(questionsIdsList))
@@ -77,11 +77,11 @@ public class StatisticsServiceImpl implements StatisticsService {
     public RequestResultJSON<Double> getUserPercentageOfCorrectAnswers(UserId userId, int testId) {
         List<Integer> questionsIdsList = getQuestionIdsListByTestId(testId);
         if (questionsIdsList == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.QUESTIONS_NOT_FOUND);
         }
         List<Answer> answersList = getAnswersListByQuestionIds(questionsIdsList, userId);
         if (answersList == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.ANSWERS_NOT_FOUND_FOR_USER);
         }
         if (answersList.isEmpty()) {
             return RequestResultJSON.errorResult(APIError.USER_DONT_HAVE_ANSWERS);
@@ -103,7 +103,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     private RequestResultJSON<Double> getPercentageOfUsersCompared(UserId userId, int testId, BiPredicate<Long, Long> predicate) {
         List<Answer> answersList = getAnswerListByTestId(testId);
         if (answersList == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.ANSWERS_NOT_FOUND_FOR_TEST);
         }
         Map<UserId, List<Answer>> usersAnswersMap = getUsersAnswerMap(answersList);
         List<Answer> userCorrectAnswerList = usersAnswersMap.get(userId);

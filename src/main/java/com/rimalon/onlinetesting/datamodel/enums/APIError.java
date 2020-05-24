@@ -3,7 +3,7 @@ package com.rimalon.onlinetesting.datamodel.enums;
 import lombok.Getter;
 
 public enum APIError {
-    INTERNALL_ERROR("Internal error"),
+    INTERNAL_ERROR("Internal error"),
     WRONG_COOKIE("Wrong cookie"),
     USER_ALREADY_REGISTERED("User with this name is already registered"),
     USER_ALREADY_LOGGED_IN("User is already logged in"),
@@ -12,7 +12,16 @@ public enum APIError {
     NO_ANSWERS_FOUND("No answers found for user"),
     USER_NOT_LOGGED_IN("User is not logged in"),
     ONLY_FIVE_QUESTIONS_IN_ONE_TEST("You cannot add more than 5 questions to the test"),
-    USER_DONT_HAVE_ANSWERS("User does not have answers");
+    QUESTIONS_NOT_FOUND("No questions were found for this test"),
+    ANSWERS_NOT_FOUND_FOR_TEST("No answers were found for this test"),
+    ANSWERS_NOT_FOUND_FOR_USER("No answers were found for this user"),
+    USER_DONT_HAVE_ANSWERS("User does not have answers"),
+    CANNOT_ADD_QUESTION("You cannot add a question with such parameters"),
+    CANNOT_CREATE_TEST("The test was not created"),
+    CANNOT_GET_TEST("You cannot add a question with such parameters"),
+    CANNOT_ADD_ANSWER("You cannot add a answer with such parameters"),
+    CANNOT_CREATE_USER("You cannot create a user with such parameters"),
+    USERS_NOT_FOUND("Users not found");
 
     @Getter
     private final String message;

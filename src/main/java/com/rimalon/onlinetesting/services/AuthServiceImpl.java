@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
         boolean result = queryHelper.save(User.class, "(username, password)", new Object[]{username.toLowerCase(), passwordEncoder.encode(password)});
 
         if (!result) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.CANNOT_CREATE_USER);
         } else {
             return new RequestResultJSON<>(true, "Registration completed successfully", null);
         }
@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
         return new RequestResultJSON<>(true, "Logout completed successfully", null);
     }
 
-    public String generateCookieAndLogin(UserId userId) {
+    private String generateCookieAndLogin(UserId userId) {
         String cookie = generateRandomCookie(COOKIE_LENGTH);
         while (cacheHelper.getLoggedUsers().putIfAbsent(cookie, userId) != null) {
             cookie = generateRandomCookie(COOKIE_LENGTH);
@@ -90,7 +90,6 @@ public class AuthServiceImpl implements AuthService {
         Random random = new SecureRandom();
         char[] result = new char[length];
         for (int i = 0; i < result.length; i++) {
-            // picks a random index out of character set > random character
             int randomCharIndex = random.nextInt(characterSet.length);
             result[i] = characterSet[randomCharIndex];
         }

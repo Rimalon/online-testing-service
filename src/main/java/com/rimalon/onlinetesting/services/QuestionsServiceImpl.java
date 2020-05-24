@@ -30,7 +30,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     public synchronized RequestResultJSON<TestJSON> createTest(UserId userId) {
         boolean saveResult = queryHelper.save(Test.class, "(authorId)", new Object[]{userId});
         if (!saveResult) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.CANNOT_CREATE_TEST);
         } else {
             Test result = queryHelper.getObjectWithMaxId(Test.class);
             return new RequestResultJSON<>(true, new TestJSON(result.getId(), null), null);
@@ -41,7 +41,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     public RequestResultJSON<TestJSON> getTest(UserId userId, Integer testId) {
         List<Question> questionList = queryHelper.getListObjectsByJoinClause(Question.class, Test.class, "Test.id = Question.testId AND Test.id = ?", new Object[]{testId});
         if (questionList == null) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.CANNOT_GET_TEST);
         } else {
             return new RequestResultJSON<>(true, new TestJSON(testId, questionList.stream().map(q -> {
                 switch (q.getType()) {
@@ -65,7 +65,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         boolean result = queryHelper.save(Question.class, "(testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption)",
                 new Object[]{testId, type.getValue(), title, userId, correctAnswer, secondOption, thirdOption, fourthOption});
         if (!result) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.CANNOT_ADD_QUESTION);
         } else {
             return new RequestResultJSON<>(true, "Question correctly  added", null);
         }
@@ -80,7 +80,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         boolean result = queryHelper.save(Question.class, "(testId, type, title, authorId, correctAnswer)",
                 new Object[]{testId, type.getValue(), title, userId, correctAnswer});
         if (!result) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.CANNOT_ADD_QUESTION);
         } else {
             return new RequestResultJSON<>(true, "Question correctly  added", null);
         }

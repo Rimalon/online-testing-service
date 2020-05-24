@@ -29,7 +29,7 @@ public class AnswersServiceImpl implements AnswersService {
         boolean result = queryHelper.save(Answer.class, "(userId, questionId, answer, isCorrect)",
                 new Object[]{userId, questionId, answer, question.getCorrectAnswer().equalsIgnoreCase(answer)});
         if (!result) {
-            return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
+            return RequestResultJSON.errorResult(APIError.CANNOT_ADD_ANSWER);
         } else {
             return new RequestResultJSON<>(true, "Answer correctly  added", null);
         }
