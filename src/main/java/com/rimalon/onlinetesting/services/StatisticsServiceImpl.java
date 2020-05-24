@@ -86,7 +86,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         if (answersList.isEmpty()) {
             return RequestResultJSON.errorResult(APIError.USER_DONT_HAVE_ANSWERS);
         }
-        return new RequestResultJSON<>(true, (double) (answersList.stream().filter(Answer::getIsCorrect).count() / (questionsIdsList.size())) * 100, null);
+        return new RequestResultJSON<>(true, ((double) answersList.stream().filter(Answer::getIsCorrect).count() / (questionsIdsList.size())) * 100, null);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                 usersAnswersMap.entrySet().stream()
                         .filter(e -> !e.getKey().equals(userId))
                         .filter(e -> predicate.test(e.getValue().stream().filter(Answer::getIsCorrect).count(), userCorrectAnswersCount)).count();
-        return new RequestResultJSON<>(true, (double) (suitableUsers / (usersAnswersMap.keySet().size() - 1)) * 100, null);
+        return new RequestResultJSON<>(true, ((double) suitableUsers / (usersAnswersMap.keySet().size() - 1)) * 100d, null);
     }
 
     private List<Integer> getQuestionIdsListByTestId(Integer testId) {
