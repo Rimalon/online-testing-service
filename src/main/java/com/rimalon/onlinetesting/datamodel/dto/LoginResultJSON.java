@@ -1,11 +1,13 @@
 package com.rimalon.onlinetesting.datamodel.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
-public class AnswersJSON {
+public class LoginResultJSON {
     @JsonProperty
-    AnswerJSON[] answers;
+    @Getter
+    String cookie;
+
 }

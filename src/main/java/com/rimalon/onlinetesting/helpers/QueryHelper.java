@@ -25,31 +25,51 @@ public class QueryHelper {
         this.jtm = jtm;
     }
 
+    public <T extends BaseEntity> Integer getTableRowsCount(Class<T> clazz) {
+        try {
+            String sql = String.format("SELECT COUNT(*) FROM %s", getFullTableName(clazz));
+            return jtm.queryForObject(sql, Integer.class);
+        } catch (Exception e) {
+            log.error("{} table not found", getFullTableName(clazz));
+            return null;
+        }
+    }
+
 
     public <T extends BaseEntity> T getById(Class<T> clazz, Integer id) {
         try {
             String sql = String.format("SELECT * FROM %s WHERE id = ?", getFullTableName(clazz));
             return jtm.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(clazz));
         } catch (Exception e) {
-            log.warn("{} is not found id={}", clazz.getSimpleName(), id);
+            log.error("{} is not found by id={}", clazz.getSimpleName(), id);
             return null;
         }
     }
 
     public <T extends BaseEntity> List<T> getListObjectsByWhereClause(Class<T> clazz, String whereClause, Object[] args) {
+        if (whereClause.chars().filter(ch -> ch == '?').count() != args.length) {
+            log.error("Incorrect parameters amount expected={} but actual={}", whereClause.chars().filter(ch -> ch == '?').count(), args.length);
+            return null;
+        }
         try {
             String sql = String.format("SELECT %s.* FROM %s WHERE %s", clazz.getSimpleName(), getFullTableName(clazz), whereClause);
             return jtm.query(sql, args, new BeanPropertyRowMapper<>(clazz));
         } catch (Exception e) {
+            log.error("{} list is not found by whereClause={}, args={}", clazz.getSimpleName(), whereClause, Arrays.toString(args));
             return null;
         }
     }
 
-    public <T extends BaseEntity, TT extends BaseEntity> List<T> getListObjectsByJoinClause(Class<T> clazz, Class<TT> joinClass, String joinClause) {
+    public <T extends BaseEntity, TT extends BaseEntity> List<T> getListObjectsByJoinClause(Class<T> clazz, Class<TT> joinClass, String joinClause, Object[] args) {
+        if (joinClause.chars().filter(ch -> ch == '?').count() != args.length) {
+            log.error("Incorrect parameters amount expected={} but actual={}", joinClause.chars().filter(ch -> ch == '?').count(), args.length);
+            return null;
+        }
         try {
             String sql = String.format("SELECT %s.* FROM %s INNER JOIN %s ON %s", clazz.getSimpleName(), getFullTableName(clazz), getFullTableName(joinClass), joinClause);
-            return jtm.query(sql, new BeanPropertyRowMapper<>(clazz));
+            return jtm.query(sql, args, new BeanPropertyRowMapper<>(clazz));
         } catch (Exception e) {
+            log.error("{} list is not found by join with {} joinClause={}, args={}", clazz.getSimpleName(), joinClass.getSimpleName(), joinClause, Arrays.toString(args));
             return null;
         }
     }
@@ -72,6 +92,7 @@ public class QueryHelper {
             String sql = String.format("SELECT * FROM %s ORDER BY id DESC LIMIT 1", getFullTableName(clazz));
             return jtm.queryForObject(sql, new BeanPropertyRowMapper<>(clazz));
         } catch (Exception e) {
+            log.error("{} is not found for max id in table", clazz.getSimpleName());
             return null;
         }
     }
@@ -82,7 +103,7 @@ public class QueryHelper {
         try {
             jtm.update(sql, args);
         } catch (Exception e) {
-            log.error("Failed to insert into table {} for fields={} and args={}", clazz.getSimpleName(), fields, Arrays.toString(args));
+            log.error("Failed to insert into table {} for fields={} and args={}. errorMessage={}", clazz.getSimpleName(), fields, Arrays.toString(args), e.getMessage());
             return false;
         }
         return true;

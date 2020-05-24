@@ -1,5 +1,6 @@
 package com.rimalon.onlinetesting.datamodel.entities;
 
+import com.rimalon.onlinetesting.datamodel.ids.UserId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -7,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class Answer extends BaseEntity {
     Integer id;
-    Integer userId;
+    UserId userId;
     Integer questionId;
     String answer;
     Boolean isCorrect;

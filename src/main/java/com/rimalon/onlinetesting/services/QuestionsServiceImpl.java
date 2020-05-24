@@ -9,6 +9,7 @@ import com.rimalon.onlinetesting.datamodel.entities.Question;
 import com.rimalon.onlinetesting.datamodel.entities.Test;
 import com.rimalon.onlinetesting.datamodel.enums.APIError;
 import com.rimalon.onlinetesting.datamodel.enums.QuestionType;
+import com.rimalon.onlinetesting.datamodel.ids.UserId;
 import com.rimalon.onlinetesting.helpers.QueryHelper;
 import com.rimalon.onlinetesting.interfaces.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +27,19 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public synchronized RequestResultJSON<Test> addTest(Integer userId) {
+    public synchronized RequestResultJSON<TestJSON> createTest(UserId userId) {
         boolean saveResult = queryHelper.save(Test.class, "(authorId)", new Object[]{userId});
         if (!saveResult) {
             return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
         } else {
             Test result = queryHelper.getObjectWithMaxId(Test.class);
-            return new RequestResultJSON<>(true, result, null);
+            return new RequestResultJSON<>(true, new TestJSON(result.getId(), null), null);
         }
     }
 
     @Override
-    public RequestResultJSON<TestJSON> getTest(Integer userId, Integer testId) {
-        List<Question> questionList = queryHelper.getListObjectsByJoinClause(Question.class, Test.class, String.format("Test.id = Question.testId AND Test.id = %d", testId));
+    public RequestResultJSON<TestJSON> getTest(UserId userId, Integer testId) {
+        List<Question> questionList = queryHelper.getListObjectsByJoinClause(Question.class, Test.class, "Test.id = Question.testId AND Test.id = ?", new Object[]{testId});
         if (questionList == null) {
             return RequestResultJSON.errorResult(APIError.INTERNALL_ERROR);
         } else {
@@ -55,8 +56,12 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public RequestResultJSON<String> addQuestion(Integer userId, Integer testId, QuestionType type, String title,
+    public RequestResultJSON<String> addQuestion(UserId userId, Integer testId, QuestionType type, String title,
                                                  String correctAnswer, String secondOption, String thirdOption, String fourthOption) {
+        List<Question> questionListByTestId = queryHelper.getListObjectsByWhereClause(Question.class, "testId = ?", new Object[]{testId});
+        if (questionListByTestId.size() >= 5) {
+            return RequestResultJSON.errorResult(APIError.ONLY_FIVE_QUESTIONS_IN_ONE_TEST);
+        }
         boolean result = queryHelper.save(Question.class, "(testId, type, title, authorId, correctAnswer, secondOption, thirdOption, fourthOption)",
                 new Object[]{testId, type.getValue(), title, userId, correctAnswer, secondOption, thirdOption, fourthOption});
         if (!result) {
@@ -67,7 +72,11 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public RequestResultJSON<String> addQuestion(Integer userId, Integer testId, QuestionType type, String title, String correctAnswer) {
+    public RequestResultJSON<String> addQuestion(UserId userId, Integer testId, QuestionType type, String title, String correctAnswer) {
+        List<Question> questionListByTestId = queryHelper.getListObjectsByWhereClause(Question.class, "testId = ?", new Object[]{testId});
+        if (questionListByTestId.size() >= 5) {
+            return RequestResultJSON.errorResult(APIError.ONLY_FIVE_QUESTIONS_IN_ONE_TEST);
+        }
         boolean result = queryHelper.save(Question.class, "(testId, type, title, authorId, correctAnswer)",
                 new Object[]{testId, type.getValue(), title, userId, correctAnswer});
         if (!result) {

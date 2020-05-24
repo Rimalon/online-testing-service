@@ -11,8 +11,8 @@ public class QuestionJSON {
     String title;
 
     @JsonCreator
-    public QuestionJSON(Question question){
-        this.id  = question.getId();
+    public QuestionJSON(Question question) {
+        this.id = question.getId();
         this.title = question.getTitle();
     }
 }

@@ -6,6 +6,7 @@ import com.rimalon.onlinetesting.datamodel.dto.RequestResultJSON;
 import com.rimalon.onlinetesting.datamodel.entities.Answer;
 import com.rimalon.onlinetesting.datamodel.entities.Question;
 import com.rimalon.onlinetesting.datamodel.enums.APIError;
+import com.rimalon.onlinetesting.datamodel.ids.UserId;
 import com.rimalon.onlinetesting.helpers.QueryHelper;
 import com.rimalon.onlinetesting.interfaces.AnswersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class AnswersServiceImpl implements AnswersService {
     }
 
     @Override
-    public RequestResultJSON<String> addAnswer(Integer userId, Integer questionId, String answer) {
+    public RequestResultJSON<String> addAnswer(UserId userId, Integer questionId, String answer) {
         Question question = queryHelper.getById(Question.class, questionId);
         boolean result = queryHelper.save(Answer.class, "(userId, questionId, answer, isCorrect)",
                 new Object[]{userId, questionId, answer, question.getCorrectAnswer().equalsIgnoreCase(answer)});
@@ -35,7 +36,7 @@ public class AnswersServiceImpl implements AnswersService {
     }
 
     @Override
-    public RequestResultJSON<AnswersJSON> getAnswers(Integer userId) {
+    public RequestResultJSON<AnswersJSON> getAnswers(UserId userId) {
         List<Answer> answers = queryHelper.getListObjectsByWhereClause(Answer.class, "userId = ?", new Object[]{userId});
         if (answers == null) {
             return RequestResultJSON.errorResult(APIError.NO_ANSWERS_FOUND);

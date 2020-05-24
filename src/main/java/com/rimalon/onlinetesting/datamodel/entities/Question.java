@@ -1,7 +1,7 @@
 package com.rimalon.onlinetesting.datamodel.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rimalon.onlinetesting.datamodel.enums.QuestionType;
+import com.rimalon.onlinetesting.datamodel.ids.UserId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +12,7 @@ public class Question extends BaseEntity {
     Integer testId;
     QuestionType type;
     String title;
-    Integer authorId;
+    UserId authorId;
     String correctAnswer;
     String secondOption;
     String thirdOption;

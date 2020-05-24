@@ -29,7 +29,7 @@ public class RequestResultJSON<T> {
         this.error = error;
     }
 
-    public static <T> RequestResultJSON<T> errorResult(APIError error){
+    public static <T> RequestResultJSON<T> errorResult(APIError error) {
         return new RequestResultJSON<>(false, null, error.getMessage());
     }
 }

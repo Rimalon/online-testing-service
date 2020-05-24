@@ -1,21 +1,20 @@
 package com.rimalon.onlinetesting.interfaces;
 
 import com.rimalon.onlinetesting.datamodel.dto.RequestResultJSON;
-
-import java.math.BigDecimal;
+import com.rimalon.onlinetesting.datamodel.ids.UserId;
 
 public interface StatisticsService {
     RequestResultJSON<Integer> getTotalUsersAmount();
 
-    RequestResultJSON<Integer> getUsersTestedAmount(Integer testId);
+    RequestResultJSON<Integer> getUsersTestedAmount(int testId);
 
-    RequestResultJSON<Integer> getUsersAnsweredAllTestingQuestions(Integer testId);
+    RequestResultJSON<Long> getUsersAnsweredAllTestingQuestions(int testId);
 
-    RequestResultJSON<Integer> getUsersAnsweredAllTestingQuestionsCorrectly(Integer testId);
+    RequestResultJSON<Long> getUsersAnsweredAllTestingQuestionsCorrectly(int testId);
 
-    RequestResultJSON<BigDecimal> getUserPercentageOfCorrectAnswers(Integer userId, Integer testId);
+    RequestResultJSON<Double> getUserPercentageOfCorrectAnswers(UserId userId, int testId);
 
-    RequestResultJSON<BigDecimal> getUsersPercentageOfWorseThanUser(Integer userId, Integer testId);
+    RequestResultJSON<Double> getUsersPercentageOfWorseThanUser(UserId userId, int testId);
 
-    RequestResultJSON<BigDecimal> getUsersPercentageOfBetterThanUser(Integer userId, Integer testId);
+    RequestResultJSON<Double> getUsersPercentageOfBetterThanUser(UserId userId, int testId);
 }

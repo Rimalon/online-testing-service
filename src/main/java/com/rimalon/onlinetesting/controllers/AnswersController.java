@@ -2,8 +2,8 @@ package com.rimalon.onlinetesting.controllers;
 
 import com.rimalon.onlinetesting.datamodel.dto.AnswersJSON;
 import com.rimalon.onlinetesting.datamodel.dto.RequestResultJSON;
+import com.rimalon.onlinetesting.helpers.CacheHelper;
 import com.rimalon.onlinetesting.interfaces.AnswersService;
-import com.rimalon.onlinetesting.interfaces.UserPermissionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,28 +17,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/answer-api")
 public class AnswersController extends BaseController {
     private AnswersService answersService;
-    private UserPermissionsService userPermissionsService;
 
     @Autowired
-    protected AnswersController(AnswersService answersService, UserPermissionsService userPermissionsService) {
-        super(log);
+    protected AnswersController(AnswersService answersService, CacheHelper cacheHelper) {
+        super(log, cacheHelper);
         this.answersService = answersService;
-        this.userPermissionsService = userPermissionsService;
     }
 
     @PostMapping("/addAnswer")
-    public RequestResultJSON<String> addAnswer(@RequestParam Integer userId,
-                                               @RequestParam Integer questionId,
+    public RequestResultJSON<String> addAnswer(@RequestParam String cookie,
+                                               @RequestParam int questionId,
                                                @RequestParam(required = false) String answer) {
-        return userPermissionsService.executeForLoggedUser(userId,
-                String.format("addAnswer called. userId=%s, questionId=%s, answer=%s", userId, questionId, answer),
-                () -> answersService.addAnswer(userId, questionId, answer));
+        return executeByLoggedUser(cookie, "addAnswer",
+                String.format("questionId=%s, answer=%s", questionId, answer),
+                (userId) -> answersService.addAnswer(userId, questionId, answer));
     }
 
     @GetMapping("/getAnswers")
-    public RequestResultJSON<AnswersJSON> getAnswers(@RequestParam Integer userId) {
-        return userPermissionsService.executeForLoggedUser(userId,
-                String.format("getAnswers called. userId=%s", userId),
-                () -> answersService.getAnswers(userId));
+    public RequestResultJSON<AnswersJSON> getAnswers(@RequestParam String cookie) {
+        return executeByLoggedUser(cookie, "getAnswers",
+                (userId) -> answersService.getAnswers(userId));
     }
 }

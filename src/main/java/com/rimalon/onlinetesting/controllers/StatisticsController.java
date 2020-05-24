@@ -1,71 +1,69 @@
 package com.rimalon.onlinetesting.controllers;
 
 import com.rimalon.onlinetesting.datamodel.dto.RequestResultJSON;
-import com.rimalon.onlinetesting.datamodel.enums.APIError;
-import com.rimalon.onlinetesting.services.AuthServiceImpl;
-import com.rimalon.onlinetesting.services.StatisticsServiceImpl;
-import com.rimalon.onlinetesting.services.UserPermissionsServiceImpl;
+import com.rimalon.onlinetesting.helpers.CacheHelper;
+import com.rimalon.onlinetesting.interfaces.StatisticsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.util.function.Supplier;
+
 
 @Slf4j
 @RestController
 @RequestMapping("/stat-api")
 public class StatisticsController extends BaseController {
-    private StatisticsServiceImpl statisticsService;
-    private UserPermissionsServiceImpl userPermissionsService;
+    private StatisticsService statisticsService;
 
     @Autowired
-    public StatisticsController(StatisticsServiceImpl statisticsService, UserPermissionsServiceImpl userPermissionsService) {
-        super(log);
+    public StatisticsController(StatisticsService statisticsService, CacheHelper cacheHelper) {
+        super(log, cacheHelper);
         this.statisticsService = statisticsService;
-        this.userPermissionsService = userPermissionsService;
     }
 
-    @PostMapping("/getTotalUsersAmount")
+    @GetMapping("/getTotalUsersAmount")
     public RequestResultJSON<Integer> getTotalUsersAmount() {
-        return execute("getTotalUsersAmount called.", statisticsService::getTotalUsersAmount);
+        return execute("getTotalUsersAmount", statisticsService::getTotalUsersAmount);
     }
 
-    @PostMapping("/getUsersTestedAmount")
-    public RequestResultJSON<Integer> getUsersTestedAmount(Integer testId) {
-        return execute(String.format("getUsersTestedAmount called. testId=%s", testId),
+    @GetMapping("/getUsersTestedAmount")
+    public RequestResultJSON<Integer> getUsersTestedAmount(@RequestParam int testId) {
+        return execute("getUsersTestedAmount", String.format("testId=%s", testId),
                 () -> statisticsService.getUsersTestedAmount(testId));
     }
 
-    @PostMapping("/getUsersAnsweredAllTestingQuestions")
-    public RequestResultJSON<Integer> getUsersAnsweredAllTestingQuestions(Integer testId) {
-        return execute(String.format("getUsersAnsweredAllTestingQuestions called. testId=%s", testId),
+    @GetMapping("/getUsersAnsweredAllTestingQuestions")
+    public RequestResultJSON<Long> getUsersAnsweredAllTestingQuestions(@RequestParam int testId) {
+        return execute("getUsersAnsweredAllTestingQuestions", String.format("testId=%s", testId),
                 () -> statisticsService.getUsersAnsweredAllTestingQuestions(testId));
     }
 
-    @PostMapping("/getUsersAnsweredAllTestingQuestionsCorrectly")
-    public RequestResultJSON<Integer> getUsersAnsweredAllTestingQuestionsCorrectly(Integer testId) {
-        return execute(String.format("getUsersAnsweredAllTestingQuestionsCorrectly called. testId=%s", testId),
+    @GetMapping("/getUsersAnsweredAllTestingQuestionsCorrectly")
+    public RequestResultJSON<Long> getUsersAnsweredAllTestingQuestionsCorrectly(@RequestParam int testId) {
+        return execute("getUsersAnsweredAllTestingQuestionsCorrectly", String.format("testId=%s", testId),
                 () -> statisticsService.getUsersAnsweredAllTestingQuestionsCorrectly(testId));
     }
 
-    @PostMapping("/getUserPercentageOfCorrectAnswers")
-    public RequestResultJSON<BigDecimal> getUserPercentageOfCorrectAnswers(@NotNull Integer userId, Integer testId) {
-        return userPermissionsService.executeForLoggedUser(userId, String.format("getUserPercentageOfCorrectAnswers called. userId=%s, testId=%s", userId, testId),
-                () -> statisticsService.getUserPercentageOfCorrectAnswers(userId, testId));
+    @GetMapping("/getUserPercentageOfCorrectAnswers")
+    public RequestResultJSON<Double> getUserPercentageOfCorrectAnswers(@RequestParam String cookie,
+                                                                       @RequestParam int testId) {
+        return executeByLoggedUser(cookie, "getUserPercentageOfCorrectAnswers", String.format("testId=%s", testId),
+                (userId) -> statisticsService.getUserPercentageOfCorrectAnswers(userId, testId));
     }
 
-    @PostMapping("/getUsersPercentageOfWorseThanUser")
-    public RequestResultJSON<BigDecimal>  getUsersPercentageOfWorseThanUser(@NotNull Integer userId, Integer testId) {
-        return userPermissionsService.executeForLoggedUser(userId, String.format("getUsersPercentageOfWorseThanUser called. userId=%s, testId=%s", userId, testId),
-                () -> statisticsService.getUsersPercentageOfWorseThanUser(userId, testId));
+    @GetMapping("/getUsersPercentageOfWorseThanUser")
+    public RequestResultJSON<Double> getUsersPercentageOfWorseThanUser(@RequestParam String cookie,
+                                                                       @RequestParam int testId) {
+        return executeByLoggedUser(cookie, "getUsersPercentageOfWorseThanUser", String.format("testId=%s", testId),
+                (userId) -> statisticsService.getUsersPercentageOfWorseThanUser(userId, testId));
     }
 
-    @PostMapping("/getUsersPercentageOfBetterThanUser")
-    public RequestResultJSON<BigDecimal>  getUsersPercentageOfBetterThanUser(@NotNull Integer userId, Integer testId) {
-        return userPermissionsService.executeForLoggedUser(userId, String.format("getUsersPercentageOfBetterThanUser called. userId=%s, testId=%s", userId, testId),
-                () -> statisticsService.getUsersPercentageOfBetterThanUser(userId, testId));
+    @GetMapping("/getUsersPercentageOfBetterThanUser")
+    public RequestResultJSON<Double> getUsersPercentageOfBetterThanUser(@RequestParam String cookie,
+                                                                        @RequestParam int testId) {
+        return executeByLoggedUser(cookie, "getUsersPercentageOfBetterThanUser", String.format("testId=%s", testId),
+                (userId) -> statisticsService.getUsersPercentageOfBetterThanUser(userId, testId));
     }
 }

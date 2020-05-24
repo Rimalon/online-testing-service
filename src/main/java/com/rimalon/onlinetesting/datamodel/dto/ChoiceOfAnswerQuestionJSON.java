@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ChoiceOfAnswerQuestionJSON extends QuestionJSON{
+public class ChoiceOfAnswerQuestionJSON extends QuestionJSON {
     @JsonProperty
     String firstOption;
     @JsonProperty
