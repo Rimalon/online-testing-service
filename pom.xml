@@ -17,7 +17,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <log4jAndslf4jVersion>2.13.1</log4jAndslf4jVersion>
+        <log4jAndslf4jVersion>2.13.3</log4jAndslf4jVersion>
         <slf4jVersion>1.7.25</slf4jVersion>
     </properties>
 
